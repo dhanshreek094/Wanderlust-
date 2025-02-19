@@ -11,6 +11,7 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const ExpressError = require("./utils/ExpressError");
 
+
 // Route Imports
 const listingRoutes = require("./routes/listing");
 const reviewRoutes = require("./routes/review");
@@ -55,15 +56,20 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use((req, res, next) => {
+    res.locals.currUser = req.user; 
+    next();
+});
+
+
 // Routes
 app.use("/listings", listingRoutes);
 app.use("/listings/:id/reviews", reviewRoutes);
 app.use("/", userRoutes);
 
-
 app.get("/", (req, res) => res.send("Welcome to Wanderlust!"));
 
-// 404 Error Handler
+
 app.all("*", (req, res, next) => {
     next(new ExpressError(404, "Page not found!"));
 });

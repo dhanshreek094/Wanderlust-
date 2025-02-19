@@ -9,7 +9,7 @@
             <div class="card-body">
               <p class="card-text">
                 <% if (listing.owner) { %>
-                    <i>Owned by<%= listing.owner.username %></i><br>  
+                    <i>Owned by <%= listing.owner.username %></i><br>  
                 <% } else { %>
                     <i>Unknown Owner</i>
                 <% } %>
@@ -31,6 +31,7 @@
         <button class="btn btn-dark offset-4">Delete </button>
     </form>
 </div>
+<% if(currUser && listing.owner._id.equals(currUser._id)) {%>
 <div class="card col-8 offset-2 mt-4 review-card">
     <div class="card-body">
         <h4>Leave a Review</h4>
@@ -46,6 +47,7 @@
             </div>
             <button class="btn btn-outline-dark">Submit</button>
         </form>
+        <% } %>
     </div>
 </div>
 
